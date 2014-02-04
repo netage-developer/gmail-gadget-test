@@ -54,7 +54,7 @@
         }
         document.body.appendChild(messageid);
         gadgets.window.adjustHeight(100);
-      }
+      });
       </script>
     ]]>
   </Content>
