@@ -52,7 +52,7 @@
                 messageid = matches[match][key];
           }
         }
-        document.body.appendChild(messageid);
+        this.body.appendChild(messageid);
         gadgets.window.adjustHeight(100);
       });
       </script>
