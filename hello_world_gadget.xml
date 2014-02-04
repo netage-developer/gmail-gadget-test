@@ -56,6 +56,7 @@
         $("<input id='showbtn' type='submit' name='showbtn' value='Quick Add' />").appendTo("#myForm");
         $('#showbtn').click(function(){
             alert(messageid);
+            return false;
         });
         
         gadgets.window.adjustHeight(50);
