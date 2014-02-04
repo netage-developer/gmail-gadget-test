@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="Hello World"
-    description="Matches and echoes 'Hello World' string in emails"
+  <ModulePrefs title="Dynamo Test"
+    description="Displays ID"
     height="20"
-    author="Sarah M and Walter Q"
+    author="Veli"
     author_email="..."
-    author_location="Mountain View, CA">
+    author_location="Netage">
 
     <!-- Declare feature dependencies. -->
 
@@ -36,7 +36,7 @@
     <![CDATA[
       <!-- Start with Single Sign-On -->
       <!-- <script type="text/javascript" src="https://example.com/gadgets/sso.js"></script> -->
-      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
       <script type="text/javascript">
 
       $(document).ready(function()
