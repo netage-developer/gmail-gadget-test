@@ -39,9 +39,10 @@
       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
       <script type="text/javascript">
 
+      var messageid;
+      
       $(document).ready(function()
       {
-        var messageid;
         <!-- Fetch the array of content matches. -->
         var matches = google.contentmatch.getContentMatches();
         
@@ -52,9 +53,10 @@
                 messageid = matches[match][key];
           }
         }
-        this.body.appendChild(messageid);
-        gadgets.window.adjustHeight(100);
       });
+      
+      document.body.appendChild(messageid);
+      gadgets.window.adjustHeight(100);
       </script>
     ]]>
   </Content>
