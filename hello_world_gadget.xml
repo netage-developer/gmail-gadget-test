@@ -56,7 +56,7 @@
         $("<input id="<span class=&quot;hiddenSpellError&quot; pre=&quot;&quot;>showbtn</span>" type="submit" name="submit" value="Quick Add" />").appendTo("#myForm");
         
         $('#showbtn').click(function(){
-            alert(messageid);
+            //alert(messageid);
         });
       
         gadgets.window.adjustHeight(50);
