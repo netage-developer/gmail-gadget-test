@@ -36,25 +36,25 @@
     <![CDATA[
       <!-- Start with Single Sign-On -->
       <!-- <script type="text/javascript" src="https://example.com/gadgets/sso.js"></script> -->
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
       <script type="text/javascript">
 
+      $(document).ready(function()
+      {
+        var messageid;
         <!-- Fetch the array of content matches. -->
-        matches = google.contentmatch.getContentMatches();
-        var matchList = document.createElement('UL');
-        var listItem;
-        var extractedText;
-
+        var matches = google.contentmatch.getContentMatches();
+        
         <!-- Iterate through the array and display output for each match. -->
         for (var match in matches) {
           for (var key in matches[match]) {
-            listItem = document.createElement('LI');
-            extractedText = document.createTextNode(key + ": " + matches[match][key]);
-            listItem.appendChild(extractedText);
-            matchList.appendChild(listItem);
+            if(key == 'message_id')
+                messageid = matches[match][key];
           }
         }
-        document.body.appendChild(matchList);
+        document.body.appendChild(messageid);
         gadgets.window.adjustHeight(100);
+      }
       </script>
     ]]>
   </Content>
