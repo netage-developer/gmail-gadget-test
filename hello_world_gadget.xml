@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Module>
   <ModulePrefs title="Dynamo"
-    description="Add to Dynamo"
+    description="Add to Dynamo as activity"
     height="20"
     author="Veli"
     author_email="..."
@@ -52,6 +52,8 @@
                 messageid = matches[match][key];
           }
         }
+        
+        $("<input id="showbtn" type="submit" name="showbtn" value="Quick Add" />").appendTo("#myForm");
         
         gadgets.window.adjustHeight(50);
       });
