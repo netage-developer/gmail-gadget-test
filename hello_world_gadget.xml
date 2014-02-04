@@ -53,12 +53,16 @@
           }
         }
         
-        $("<input id="showbtn" type="submit" name="showbtn" value="Quick Add" />").appendTo("#myForm");
+        $("<input id='showbtn' type='submit' name='showbtn' value='Quick Add' />").appendTo("#myForm");
+        $('#showbtn').click(function(){
+            alert(messageid);
+        });
         
         gadgets.window.adjustHeight(50);
       });
       
       </script>
+      
       <form id="myForm">
       </form>
     ]]>
