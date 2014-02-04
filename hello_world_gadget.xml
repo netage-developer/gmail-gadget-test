@@ -38,11 +38,10 @@
       <!-- <script type="text/javascript" src="https://example.com/gadgets/sso.js"></script> -->
       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
       <script type="text/javascript">
-
-      var messageid;
       
       $(document).ready(function()
       {
+        var messageid;
         <!-- Fetch the array of content matches. -->
         var matches = google.contentmatch.getContentMatches();
         
@@ -53,11 +52,19 @@
                 messageid = matches[match][key];
           }
         }
+        
+        $("<input id="<span class=&quot;hiddenSpellError&quot; pre=&quot;&quot;>showbtn</span>" type="submit" name="submit" value="Quick Add" />").appendTo("#myForm");
+        
+        $('#showbtn').click(function(){
+            alert(messageid);
+        });
+      
+        gadgets.window.adjustHeight(50);
       });
       
-      document.body.appendChild(messageid);
-      gadgets.window.adjustHeight(100);
       </script>
+      <form id="myForm">
+      </form>
     ]]>
   </Content>
 </Module>
