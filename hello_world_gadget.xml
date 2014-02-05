@@ -43,7 +43,7 @@
         <!-- Iterate through the array and display output for each match. -->
         for (var match in matches) {
           for (var key in matches[match]) {
-            if(key == 'message_id')
+            if(key == 'id')
                 messageid = matches[match][key];
           }
         }
