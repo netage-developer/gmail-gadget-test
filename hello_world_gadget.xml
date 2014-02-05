@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Module>
   <ModulePrefs title="Dynamo"
-    description="Add to Dynamo as activity"
+    description="second gadget test"
     height="20"
     author="Veli"
     author_email="..."
@@ -11,11 +11,6 @@
 
     <!-- This one is not specific to Gmail contextual gadgets. -->
     <Require feature="dynamic-height"/>
-
-    <!-- The next feature, Caja, is optional, and is supported for
-     use only within test domains. Uncomment the tag only for
-     non-production gadgets. -->
-    <!-- <Require feature="caja"/> -->
 
     <!-- The next feature, google.contentmatch, is required for all
      Gmail contextual gadgets.
@@ -35,7 +30,7 @@
   <Content type="html" view="card">
     <![CDATA[
       <!-- Start with Single Sign-On -->
-      <!-- <script type="text/javascript" src="https://example.com/gadgets/sso.js"></script> -->
+
       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
       <script type="text/javascript">
       
