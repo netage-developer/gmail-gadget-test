@@ -43,13 +43,13 @@
         <!-- Iterate through the array and display output for each match. -->
         for (var match in matches) {
           for (var key in matches[match]) {
-            if(key == 'id')
+            if(key == 'message_id')
                 messageid = matches[match][key];
           }
         }
         
         $("<input id='showbtn' type='submit' name='showbtn' value='Quick Add' />").appendTo("#myForm");
-        $("<label id='msgid'>Male</label>").appendTo("#myForm");
+        $("<label id='msgid'></label>").appendTo("#myForm");
         $("#msgid").text(messageid);
         
         $('#showbtn').click(function(){
