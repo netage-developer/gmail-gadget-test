@@ -49,12 +49,15 @@
         }
         
         $("<input id='showbtn' type='submit' name='showbtn' value='Quick Add' />").appendTo("#myForm");
+        $("<label id='msgid'>Male</label>").appendTo("#myForm");
+        $("#msgid").text(messageid);
+        
         $('#showbtn').click(function(){
             alert(messageid);
             return false;
         });
         
-        gadgets.window.adjustHeight(50);
+        gadgets.window.adjustHeight(20);
       });
       
       </script>
