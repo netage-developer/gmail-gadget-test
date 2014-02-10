@@ -50,7 +50,10 @@
         
         $("<input id='showbtn' type='submit' name='showbtn' value='Quick Add' />").appendTo("#myForm");
         $("<label id='msgid'></label>").appendTo("#myForm");
-        $("#msgid").text(messageid);
+        
+        var domain = gadgets.util.getUrlParameters()['parent'].match(/.+\/a\/(.+)\/html/)[1];
+        
+        $("#msgid").text(domain);
         
         $('#showbtn').click(function(){
             alert(messageid);
