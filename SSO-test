@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="Dynamo"
+    description="second gadget test"
+    height="20"
+    author="Veli"
+    author_email="..."
+    author_location="Netage">
+
+    <!-- Declare feature dependencies. -->
+
+    <!-- This one is not specific to Gmail contextual gadgets. -->
+    <Require feature="dynamic-height"/>
+
+    <!-- The next feature, google.contentmatch, is required for all
+     Gmail contextual gadgets.
+     <Param> - specify one or more comma-separated extractor IDs in
+     a param named "extractors". This line is overridden by the extractor ID
+     in the manifest, but is still expected to be present. -->
+    <Require feature="google.contentmatch">
+      <Param name="extractors">
+        google.com:MessageIDExtractor
+      </Param>
+    </Require>
+
+  </ModulePrefs>
+
+  <!-- Define the content type and display location. The settings
+   "html" and "card" are required for all Gmail contextual gadgets. -->
+  <Content type="html" view="card">
+    <![CDATA[
+      <!-- Start with Single Sign-On -->
+
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+      <script type="text/javascript">
+      
+      $(document).ready(function()
+      {
+        var messageid;
+        <!-- Fetch the array of content matches. -->
+        var matches = google.contentmatch.getContentMatches();
+        
+        <!-- Iterate through the array and display output for each match. -->
+        for (var match in matches) {
+          for (var key in matches[match]) {
+            if(key == 'message_id')
+                messageid = matches[match][key];
+          }
+        }
+        
+        $("<input id='showbtn' type='submit' name='showbtn' value='Quick Add' />").appendTo("#myForm");
+        $("<label id='msgid'></label>").appendTo("#myForm");
+        
+        //var domain = gadgets.util.getUrlParameters()['parent'].match(/.+\/a\/(.+)\/html/)[1];
+        var domain = gadgets.util.getUrlParameters()['parent'];
+        
+        $("#msgid").text(domain);
+        
+        $('#showbtn').click(function(){
+            alert(messageid);
+            return false;
+        });
+        
+        gadgets.window.adjustHeight(20);
+      });
+      
+      </script>
+      
+      <form id="myForm">
+      </form>
+    ]]>
+  </Content>
+</Module>
