@@ -52,7 +52,7 @@
         $("<label id='msgid'></label>").appendTo("#myForm");
         
         //var domain = gadgets.util.getUrlParameters()['parent'].match(/.+\/a\/(.+)\/html/)[1];
-        var domain = gadgets.util.getUrlParameters()['parent'].match(/.+\/a\/(.+)\/html/)[0];
+        var domain = gadgets.util.getUrlParameters()['parent'];
         
         $("#msgid").text(domain);
         
