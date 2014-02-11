@@ -11,7 +11,8 @@
 
     <!-- This one is not specific to Gmail contextual gadgets. -->
     <Require feature="dynamic-height"/>
-
+    <Require feature="setprefs" />
+    
     <!-- The next feature, google.contentmatch, is required for all
      Gmail contextual gadgets.
      <Param> - specify one or more comma-separated extractor IDs in
