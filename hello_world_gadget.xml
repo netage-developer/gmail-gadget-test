@@ -12,6 +12,8 @@
     <!-- This one is not specific to Gmail contextual gadgets. -->
     <Require feature="dynamic-height"/>
     <Require feature="setprefs" />
+    <Require feature="opensocial-0.9" />
+    <Require feature="osapi" />
     
     <!-- The next feature, google.contentmatch, is required for all
      Gmail contextual gadgets.
