@@ -65,9 +65,9 @@
         });
 
         $('#getprefbtn').click(function(){
-            alert("getprefbtn");
-            //var prefs = new gadgets.Prefs();
-            //var name = prefs.getString("veli");
+            var prefs = new gadgets.Prefs();
+            var name = prefs.getString("name");
+            alert(name);
             //$("#msgid").text(name);
             return false;
         });
