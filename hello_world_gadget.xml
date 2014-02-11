@@ -48,9 +48,9 @@
           }
         }
         
-        $("<input id='showbtn' type='submit' name='storeprefbtn' value='Store pref' />").appendTo("#myForm");
+        $("<input id='storeprefbtn' type='submit' name='storeprefbtn' value='Store pref' />").appendTo("#myForm");
         
-        $("<input id='showbtn' type='submit' name='getprefbtn' value='Get pref' />").appendTo("#myForm");
+        $("<input id='getprefbtn' type='submit' name='getprefbtn' value='Get pref' />").appendTo("#myForm");
         
         $("<label id='msgid'></label>").appendTo("#myForm");
         
