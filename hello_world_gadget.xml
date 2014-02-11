@@ -58,15 +58,15 @@
         //$("#msgid").text(domain);
         
         $('#storeprefbtn').click(function(){
+            var prefs = new gadgets.Prefs();
+            prefs.set("veli", "alabala");
             alert("storeprefbtn");
-            //var prefs = new gadgets.Prefs();
-            //prefs.set("veli", "alabala");
             return false;
         });
 
         $('#getprefbtn').click(function(){
             var prefs = new gadgets.Prefs();
-            var name = prefs.getString("name");
+            var name = prefs.getString("veli");
             alert(name);
             //$("#msgid").text(name);
             return false;
