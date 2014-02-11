@@ -52,9 +52,7 @@
         }
         
         $("<input id='storeprefbtn' type='submit' name='storeprefbtn' value='Store pref' />").appendTo("#myForm");
-        
         $("<input id='getprefbtn' type='submit' name='getprefbtn' value='Get pref' />").appendTo("#myForm");
-        
         $("<label id='msgid'></label>").appendTo("#myForm");
         
         //var domain = gadgets.util.getUrlParameters()['parent'].match(/.+\/a\/(.+)\/html/)[1];
@@ -69,7 +67,7 @@
 
         $('#getprefbtn').click(function(){
             var prefs = new gadgets.Prefs();
-            var name = prefs.getString("veli") + prefs.getString("email");
+            var name = prefs.getString("veli") + opensocial.Email;
             alert(name);
             //$("#msgid").text(name);
             return false;
