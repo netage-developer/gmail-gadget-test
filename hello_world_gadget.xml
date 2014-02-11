@@ -67,7 +67,7 @@
 
         $('#getprefbtn').click(function(){
             var prefs = new gadgets.Prefs();
-            var name = prefs.getString("veli") + opensocial.Email;
+            var name = prefs.getString("veli") + opensocial.Email.Field.ADDRESS;
             alert(name);
             //$("#msgid").text(name);
             return false;
