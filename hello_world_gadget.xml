@@ -69,7 +69,7 @@
 
         $('#getprefbtn').click(function(){
             var prefs = new gadgets.Prefs();
-            var name = prefs.getString("veli") + viewer.getId();
+            var name = prefs.getString("veli") + prefs.getString("email");
             alert(name);
             //$("#msgid").text(name);
             return false;
