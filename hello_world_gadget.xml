@@ -116,10 +116,11 @@
             var params = {};
             params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
             gadgets.io.makeRequest(url, response, params);
-        };
+        }
+        
         function response(obj) {
             alert(obj.text);
-        };
+        }
 
     </script>
       
