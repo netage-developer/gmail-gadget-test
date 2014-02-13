@@ -42,7 +42,7 @@
             $("<input id='loginbtn' type='submit' name='loginbtn' value='Login' />").appendTo("#myForm");
             $("<input id='logoutbtn' type='submit' name='logoutbtn' value='Logout' />").appendTo("#myForm");
             $("<label id='msgid'></label>").appendTo("#myForm");
-
+alert('aaa');
             $('#loginbtn').click(function () {
                 var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamoadmin@veli.com&dynamoPassord=veli.2014&dynamoTenant=';
                 $.ajax({
@@ -106,21 +106,6 @@
             return 'https://rome.netagesolutions.com:3434';
         }
 
-    </script>
-
-
-    <!-- For local test -->
-    <script type="text/javascript">
-
-        var dict = {};
-
-        function getPref(key) {
-            return dict[key];
-        }
-
-        function setPref(key, val) {
-            dict[key] = val;
-        }
     </script>
       
       <form id="myForm">
