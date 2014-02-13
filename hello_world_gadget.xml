@@ -42,8 +42,9 @@
             $("<input id='loginbtn' type='submit' name='loginbtn' value='Login' />").appendTo("#myForm");
             $("<input id='logoutbtn' type='submit' name='logoutbtn' value='Logout' />").appendTo("#myForm");
             $("<label id='msgid'></label>").appendTo("#myForm");
-alert('aaa');
+
             $('#loginbtn').click(function () {
+            alert('click');
                 var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamoadmin@veli.com&dynamoPassord=veli.2014&dynamoTenant=';
                 $.ajax({
                     type: 'GET',
@@ -54,7 +55,7 @@ alert('aaa');
                     url: geturl() + 'api/login',
                     success: function (response) {
                         //Output result on success
-                        alert(response.success);
+                        alert(response);
                         setPref(prefKey, "TODO");
                     },
                     error: function (xhr) {
