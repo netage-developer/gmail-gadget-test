@@ -12,8 +12,7 @@
     <!-- This one is not specific to Gmail contextual gadgets. -->
     <Require feature="dynamic-height"/>
     <Require feature="setprefs" />
-    <Require feature="opensocial-0.9" />
-    <Require feature="osapi" />
+    <Require feature="locked-domain" />
     
     <!-- The next feature, google.contentmatch, is required for all
      Gmail contextual gadgets.
@@ -34,49 +33,72 @@
     <![CDATA[
       <!-- Start with Single Sign-On -->
 
-      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-      <script type="text/javascript">
-      
-      $(document).ready(function()
-      {
-        var messageid;
-        <!-- Fetch the array of content matches. -->
-        var matches = google.contentmatch.getContentMatches();
-        
-        <!-- Iterate through the array and display output for each match. -->
-        for (var match in matches) {
-          for (var key in matches[match]) {
-            if(key == 'message_id')
-                messageid = matches[match][key];
-          }
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <script type="text/javascript">
+
+        $(document).ready(function () {
+            var prefKey = "userid";
+
+            $("<input id='loginbtn' type='submit' name='loginbtn' value='Login' />").appendTo("#myForm");
+            $("<input id='logoutbtn' type='submit' name='logoutbtn' value='Logout' />").appendTo("#myForm");
+            $("<label id='msgid'></label>").appendTo("#myForm");
+
+            //var domain = gadgets.util.getUrlParameters()['parent'].match(/.+\/a\/(.+)\/html/)[1];
+
+            $('#loginbtn').click(function () {
+                var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamoadmin@veli.com&dynamoPassord=veli.2014&dynamoTenant=';
+                $.ajax({
+                    type: 'GET',
+                    data: dataValues,
+                    cache: false,
+                    contentType: "application/json",
+                    dataType: "jsonp",
+                    url: "http://localhost:58877/api/login",
+                    success: function (response) {
+                        //Output result on success
+                        alert(response.success);
+                        setPref(prefKey, "TODO");
+                    }
+                });
+                return false;
+            });
+
+            $('#logoutbtn').click(function () {
+                var guid = getPref(prefKey);
+                if (!guid)
+                    return false;
+
+                var dataValues = 'logout?uid=' + guid;
+                $.ajax({
+                    type: 'GET',
+                    data: dataValues,
+                    cache: false,
+                    contentType: "application/json",
+                    dataType: "jsonp",
+                    url: "http://localhost:58877/api/login",
+                    success: function (response) {
+                        //Output result on success
+                        setPref(prefKey, null);
+                        alert(response.success);
+                    }
+                });
+                return false;
+            });
+
+            //gadgets.window.adjustHeight(20);
+        });
+
+        function getPref(key) {
+            var prefs = new gadgets.Prefs();
+            return prefs.getString(key);
         }
-        
-        $("<input id='storeprefbtn' type='submit' name='storeprefbtn' value='Store pref' />").appendTo("#myForm");
-        $("<input id='getprefbtn' type='submit' name='getprefbtn' value='Get pref' />").appendTo("#myForm");
-        $("<label id='msgid'></label>").appendTo("#myForm");
-        
-        //var domain = gadgets.util.getUrlParameters()['parent'].match(/.+\/a\/(.+)\/html/)[1];
-        //$("#msgid").text(domain);
-        
-        $('#storeprefbtn').click(function(){
-            var prefs = new gadgets.Prefs();
-            prefs.set("veli", "alabala");
-            alert("storeprefbtn");
-            return false;
-        });
 
-        $('#getprefbtn').click(function(){
+        function setPref(key, val) {
             var prefs = new gadgets.Prefs();
-            var name = prefs.getString("veli") + opensocial.Email.Field.ADDRESS;
-            alert(name);
-            //$("#msgid").text(name);
-            return false;
-        });
+            prefs.set(key, val);
+        }
 
-        gadgets.window.adjustHeight(20);
-      });
-      
-      </script>
+    </script>
       
       <form id="myForm">
       </form>
