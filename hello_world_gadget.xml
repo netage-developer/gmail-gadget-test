@@ -44,7 +44,7 @@
             $("<label id='msgid'></label>").appendTo("#myForm");
 
             $('#loginbtn').click(function () {
-            alert('click');
+            alert(geturl() + 'api/login');
                 var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamoadmin@veli.com&dynamoPassord=veli.2014&dynamoTenant=';
                 $.ajax({
                     type: 'GET',
