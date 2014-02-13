@@ -43,32 +43,25 @@
             $("<input id='logoutbtn' type='submit' name='logoutbtn' value='Logout' />").appendTo("#myForm");
             $("<label id='msgid'></label>").appendTo("#myForm");
 
-            var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamoadmin@veli.com&dynamoPassord=veli.2014';
-
             $('#loginbtn').click(function () {
-
-                //var uri = geturl() + 'api/login?' + dataValues;
-                //alert(uri);
-                //makeGETRequest(uri);
-                //return false;
-
+            
+                var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamoadmin@veli.com&dynamoPassord=veli.2014';
+                var url = geturl() + 'api/login&' + dataValues;
+                           
                 $.ajax({
                     type: 'GET',
-                    data: dataValues,
                     cache: false,
-                    contentType: "application/json",
-                    dataType: "jsonp",
-                    url: geturl() + 'api/login',
-                    success: function (response) {
-                        //Output result on success
-                        alert(response);
-                        setPref(prefKey, "TODO");
+                    async: true,
+                    url: url,
+                    success: function (data) {
+                      alert(data)          
                     },
-                    error: function (xhr) {
-                        alert(xhr.status);
+                    error: function (xhr, ajaxOptions, thrownError) {
+                      alert(xhr.status)
                     }
-                });
-                return false;
+              });
+              
+              return false;
             });
 
             $('#logoutbtn').click(function () {
@@ -111,16 +104,6 @@
 
         function geturl() {
             return 'https://rome.netagesolutions.com:3434/';
-        }
-
-        function makeGETRequest(url) {
-            var params = {};
-            params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
-            gadgets.io.makeRequest(url, response, params);
-        }
-        
-        function response(obj) {
-            alert('vv ' + obj.text);
         }
 
     </script>
