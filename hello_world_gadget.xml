@@ -33,7 +33,7 @@
     <![CDATA[
       <!-- Start with Single Sign-On -->
 
-          <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -43,9 +43,14 @@
             $("<input id='logoutbtn' type='submit' name='logoutbtn' value='Logout' />").appendTo("#myForm");
             $("<label id='msgid'></label>").appendTo("#myForm");
 
+            var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamoadmin@veli.com&dynamoPassord=veli.2014&dynamoTenant=';
+
             $('#loginbtn').click(function () {
-            alert(geturl() + 'api/login');
-                var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamoadmin@veli.com&dynamoPassord=veli.2014&dynamoTenant=';
+
+                var uri = geturl() + 'api/login' + dataValues;
+                alert(uri);
+                makeGETRequest(uri);
+
                 $.ajax({
                     type: 'GET',
                     data: dataValues,
@@ -106,6 +111,15 @@
         function geturl() {
             return 'https://rome.netagesolutions.com:3434';
         }
+
+        function makeGETRequest(url) {
+            var params = {};
+            params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+            gadgets.io.makeRequest(url, response, params);
+        };
+        function response(obj) {
+            alert(obj.text);
+        };
 
     </script>
       
