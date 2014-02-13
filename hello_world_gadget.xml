@@ -120,7 +120,7 @@
         }
         
         function response(obj) {
-            alert(obj.text);
+            alert('vv ' + obj.text);
         }
 
     </script>
