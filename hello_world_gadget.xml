@@ -50,6 +50,7 @@
                 var uri = geturl() + 'api/login' + dataValues;
                 alert(uri);
                 makeGETRequest(uri);
+                return false;
 
                 $.ajax({
                     type: 'GET',
@@ -109,7 +110,7 @@
         }
 
         function geturl() {
-            return 'https://rome.netagesolutions.com:3434';
+            return 'https://rome.netagesolutions.com:3434/';
         }
 
         function makeGETRequest(url) {
