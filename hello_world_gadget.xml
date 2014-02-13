@@ -47,7 +47,7 @@
 
             $('#loginbtn').click(function () {
 
-                var uri = geturl() + 'api/login' + dataValues;
+                var uri = geturl() + 'api/login?' + dataValues;
                 alert(uri);
                 makeGETRequest(uri);
                 return false;
