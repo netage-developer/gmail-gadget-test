@@ -31,8 +31,7 @@
    "html" and "card" are required for all Gmail contextual gadgets. -->
   <Content type="html" view="card">
     <![CDATA[
-      <!-- Start with Single Sign-On -->
-
+     
          <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <script type="text/javascript">
 
@@ -44,24 +43,24 @@
             $("<label id='msgid'></label>").appendTo("#myForm");
 
             $('#loginbtn').click(function () {
-            
+
                 var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamoadmin@veli.com&dynamoPassord=veli.2014';
                 var url = geturl() + 'api/login?' + dataValues;
-                alert(url);
-                
-                $.get({
+
+                $.ajax({
+                    type: 'GET',
                     cache: false,
                     async: true,
                     url: url,
                     success: function (data) {
-                      setPref(prefKey, data);          
+                        setPref(prefKey, data);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                      alert(xhr.status);
+                        alert(xhr.status);
                     }
-              });
-              
-              return false;
+                });
+
+                return false;
             });
 
             $('#logoutbtn').click(function () {
