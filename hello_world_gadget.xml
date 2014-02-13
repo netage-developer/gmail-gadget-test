@@ -43,7 +43,7 @@
             $("<input id='logoutbtn' type='submit' name='logoutbtn' value='Logout' />").appendTo("#myForm");
             $("<label id='msgid'></label>").appendTo("#myForm");
 
-            var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamoadmin@veli.com&dynamoPassord=veli.2014&dynamoTenant=';
+            var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamoadmin@veli.com&dynamoPassord=veli.2014';
 
             $('#loginbtn').click(function () {
 
