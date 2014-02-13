@@ -33,8 +33,8 @@
     <![CDATA[
       <!-- Start with Single Sign-On -->
 
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-        <script type="text/javascript">
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+      <script type="text/javascript">
 
         $(document).ready(function () {
             var prefKey = "userid";
@@ -42,8 +42,6 @@
             $("<input id='loginbtn' type='submit' name='loginbtn' value='Login' />").appendTo("#myForm");
             $("<input id='logoutbtn' type='submit' name='logoutbtn' value='Logout' />").appendTo("#myForm");
             $("<label id='msgid'></label>").appendTo("#myForm");
-
-            //var domain = gadgets.util.getUrlParameters()['parent'].match(/.+\/a\/(.+)\/html/)[1];
 
             $('#loginbtn').click(function () {
                 var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamoadmin@veli.com&dynamoPassord=veli.2014&dynamoTenant=';
@@ -53,7 +51,7 @@
                     cache: false,
                     contentType: "application/json",
                     dataType: "jsonp",
-                    url: "http://localhost:58877/api/login",
+                    url: geturl() + 'api/login',
                     success: function (response) {
                         //Output result on success
                         alert(response.success);
@@ -68,14 +66,14 @@
                 if (!guid)
                     return false;
 
-                var dataValues = 'logout?uid=' + guid;
+                var dataValues = 'uid=' + guid;
                 $.ajax({
                     type: 'GET',
                     data: dataValues,
                     cache: false,
                     contentType: "application/json",
                     dataType: "jsonp",
-                    url: "http://localhost:58877/api/login",
+                    url: geturl() + '/api/logout',
                     success: function (response) {
                         //Output result on success
                         setPref(prefKey, null);
@@ -96,6 +94,10 @@
         function setPref(key, val) {
             var prefs = new gadgets.Prefs();
             prefs.set(key, val);
+        }
+
+        function geturl() {
+            return 'https://rome.netagesolutions.com:3434';
         }
 
     </script>
