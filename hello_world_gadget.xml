@@ -49,16 +49,15 @@
                 var url = geturl() + 'api/login?' + dataValues;
                 alert(url);
                 
-                $.ajax({
-                    type: 'GET',
+                $.get({
                     cache: false,
                     async: true,
                     url: url,
                     success: function (data) {
-                      alert(data)          
+                      setPref(prefKey, data);          
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                      alert(xhr.status)
+                      alert(xhr.status);
                     }
               });
               
@@ -70,18 +69,14 @@
                 if (!guid)
                     return false;
 
-                var dataValues = 'uid=' + guid;
+                var url = geturl() + '/api/logout?uid=' + guid;
                 $.ajax({
                     type: 'GET',
-                    data: dataValues,
                     cache: false,
-                    contentType: "application/json",
-                    dataType: "jsonp",
-                    url: geturl() + '/api/logout',
+                    url: url,
                     success: function (response) {
-                        //Output result on success
                         setPref(prefKey, null);
-                        alert(response.success);
+                        alert(getPref(prefKey));
                     },
                     error: function (xhr) {
                         alert(xhr.status);
