@@ -46,7 +46,7 @@
             $('#loginbtn').click(function () {
             
                 var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamoadmin@veli.com&dynamoPassord=veli.2014';
-                var url = geturl() + 'api/login&' + dataValues;
+                var url = geturl() + 'api/login?' + dataValues;
                 alert(url);
                 
                 $.ajax({
