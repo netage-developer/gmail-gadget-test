@@ -51,8 +51,8 @@
             $('#addToDynamo').click(function () {
                 var guid = getPref(prefKey);
                 if (!guid) return false;
-                var url = geturl() + '/api/addToDynamo?uid=' + guid + '&msgid=' + getMessageId();
-alert(url);
+                var url = geturl() + 'api/addToDynamo?uid=' + guid + '&msgid=' + getMessageId();
+
                 $.ajax({
                     type: 'GET',
                     cache: false,
