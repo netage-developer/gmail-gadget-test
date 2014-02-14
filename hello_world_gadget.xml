@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Module>
   <ModulePrefs title="Dynamo"
-    description="third test 4"
-    height="20"
-    author="Veli"
+    description="Gmail contextual gadget"
+    height="50"
+    author=""
     author_email="..."
     author_location="Netage">
 
@@ -52,7 +52,7 @@
                 var guid = getPref(prefKey);
                 if (!guid) return false;
                 var url = geturl() + '/api/addToDynamo?uid=' + guid + '&msgid=' + getMessageId();
-
+alert(url);
                 $.ajax({
                     type: 'GET',
                     cache: false,
@@ -62,7 +62,7 @@
                         alert(data);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        alert(xhr.status);
+                        alert(xhr.status + ' ' + thrownError);
                     }
                 });
 
