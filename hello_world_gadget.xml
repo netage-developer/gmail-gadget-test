@@ -32,17 +32,46 @@
   <Content type="html" view="card">
     <![CDATA[
      
-         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <script type="text/javascript">
 
+        var prefKey = "userid";
+
         $(document).ready(function () {
-            var prefKey = "userid";
 
             $("<input id='loginbtn' type='submit' name='loginbtn' value='Login' />").appendTo("#myForm");
             $("<input id='logoutbtn' type='submit' name='logoutbtn' value='Logout' />").appendTo("#myForm");
+            $("<input id='addToDynamo' type='submit' name='addToDynamo' value='Add to Dynamo' />").appendTo("#myForm");
+
+            $("<br />").appendTo("#myForm");
             $("<label id='msgid'></label>").appendTo("#myForm");
 
+            showStatus();
+
+            $('#addToDynamo').click(function () {
+                var guid = getPref(prefKey);
+                if (!guid) return false;
+                var url = geturl() + '/api/addToDynamo?uid=' + guid + '&msgid=' + getMessageId();
+
+                $.ajax({
+                    type: 'GET',
+                    cache: false,
+                    async: true,
+                    url: url,
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                    }
+                });
+
+                return false;
+            });
+
             $('#loginbtn').click(function () {
+                var guid = getPref(prefKey);
+                if (guid) return false;
 
                 var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamoadmin@veli.com&dynamoPassord=veli.2014';
                 var url = geturl() + 'api/login?' + dataValues;
@@ -54,6 +83,7 @@
                     url: url,
                     success: function (data) {
                         setPref(prefKey, data);
+                        showStatus();
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         alert(xhr.status);
@@ -65,17 +95,16 @@
 
             $('#logoutbtn').click(function () {
                 var guid = getPref(prefKey);
-                if (!guid)
-                    return false;
-
+                if (!guid) return false;
                 var url = geturl() + '/api/logout?uid=' + guid;
+
                 $.ajax({
                     type: 'GET',
                     cache: false,
                     url: url,
                     success: function (response) {
                         setPref(prefKey, null);
-                        alert(getPref(prefKey));
+                        showStatus();
                     },
                     error: function (xhr) {
                         alert(xhr.status);
@@ -86,6 +115,16 @@
 
             //gadgets.window.adjustHeight(20);
         });
+
+        function showStatus() {
+            var guid = getPref(prefKey);
+            if (guid) {
+                $('#msgid').text('Logged In');
+            }
+            else {
+                $('#msgid').text('Logged Out');
+            }
+        }
 
         function getPref(key) {
             var prefs = new gadgets.Prefs();
@@ -100,6 +139,16 @@
         function geturl() {
             return 'https://rome.netagesolutions.com:3434/';
         }
+
+        function getMessageId() {
+            var matches = google.contentmatch.getContentMatches();
+
+            for (var match in matches)
+                for (var key in matches[match])
+                    if (key == 'message_id')
+                        return matches[match][key];
+        }
+
 
     </script>
       
