@@ -51,7 +51,7 @@
             $('#addToDynamo').click(function () {
                 var guid = getPref(prefKey);
                 if (!guid) return false;
-                var url = geturl() + 'api/dynamo?uid=' + guid + '&msgid=' + getMessageId();
+                var url = geturl() + 'api/dynamo/QuickAdd?uid=' + guid + '&msgid=' + getMessageId();
 
                 $.ajax({
                     type: 'GET',
@@ -74,7 +74,7 @@
                 if (guid) return false;
 
                 var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamoadmin@veli.com&dynamoPassord=veli.2014';
-                var url = geturl() + 'api/login?' + dataValues;
+                var url = geturl() + 'api/login/get?' + dataValues;
 
                 $.ajax({
                     type: 'GET',
@@ -96,7 +96,7 @@
             $('#logoutbtn').click(function () {
                 var guid = getPref(prefKey);
                 if (!guid) return false;
-                var url = geturl() + '/api/logout?uid=' + guid;
+                var url = geturl() + '/api/logout/get?uid=' + guid;
 
                 $.ajax({
                     type: 'GET',
