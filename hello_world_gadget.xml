@@ -51,7 +51,7 @@
             $('#addToDynamo').click(function () {
                 var guid = getPref(prefKey);
                 if (!guid) return false;
-                var url = geturl() + 'api/addToDynamo?uid=' + guid + '&msgid=' + getMessageId();
+                var url = geturl() + 'api/dynamo?uid=' + guid + '&msgid=' + getMessageId();
 
                 $.ajax({
                     type: 'GET',
@@ -62,7 +62,7 @@
                         alert(data);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        alert(xhr.status + ' ' + thrownError);
+                        alert(xhr.status + ' ' + xhr.response);
                     }
                 });
 
@@ -86,7 +86,7 @@
                         showStatus();
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        alert(xhr.status);
+                        alert(xhr.status + ' ' + xhr.response);
                     }
                 });
 
@@ -107,13 +107,13 @@
                         showStatus();
                     },
                     error: function (xhr) {
-                        alert(xhr.status);
+                        alert(xhr.status + ' ' + xhr.response);
                     }
                 });
                 return false;
             });
 
-            //gadgets.window.adjustHeight(20);
+            gadgets.window.adjustHeight(50);
         });
 
         function showStatus() {
