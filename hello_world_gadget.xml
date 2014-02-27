@@ -41,14 +41,37 @@
 
             $("<input id='loginbtn' type='submit' name='loginbtn' value='Login' />").appendTo("#myForm");
             $("<input id='logoutbtn' type='submit' name='logoutbtn' value='Logout' />").appendTo("#myForm");
-            $("<input id='addToDynamo' type='submit' name='addToDynamo' value='Add to Dynamo' />").appendTo("#myForm");
+            $("<input id='quickAdd' type='submit' name='quickAdd' value='Quick Add' />").appendTo("#myForm");
+            $("<input id='advancedAdd' type='submit' name='advancedAdd' value='Advanced Add' />").appendTo("#myForm");
 
             $("<br />").appendTo("#myForm");
             $("<label id='msgid'></label>").appendTo("#myForm");
 
             showStatus();
 
-            $('#addToDynamo').click(function () {
+            $('#advancedAdd').click(function () {
+                var guid = getPref(prefKey);
+                if (!guid) return false;
+                var url = geturl() + 'api/dynamo/GetInfo?uid=' + guid + '&msgid=' + getMessageId();
+
+                $.ajax({
+                    type: 'GET',
+                    cache: false,
+                    async: true,
+                    url: url,
+                    success: function (data) {
+                        alert(data);
+                        var emailInfo = JSON.parse(myJSONtext, data);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + ' ' + xhr.response);
+                    }
+                });
+
+                return false;
+            });
+            
+            $('#quickAdd').click(function () {
                 var guid = getPref(prefKey);
                 if (!guid) return false;
                 var url = geturl() + 'api/dynamo/QuickAdd?uid=' + guid + '&msgid=' + getMessageId();
