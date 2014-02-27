@@ -60,8 +60,8 @@
                     async: true,
                     url: url,
                     success: function (data) {
-                        alert(data);
                         var emailInfo = JSON.parse(data);
+                        alert(data);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         alert(xhr.status + ' ' + xhr.response);
