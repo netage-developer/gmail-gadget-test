@@ -42,63 +42,14 @@
             $("<input id='loginbtn' type='submit' name='loginbtn' value='Login' />").appendTo("#myForm");
             $("<input id='logoutbtn' type='submit' name='logoutbtn' value='Logout' />").appendTo("#myForm");
             $("<input id='quickAdd' type='submit' name='quickAdd' value='Quick Add' />").appendTo("#myForm");
-            $("<input id='advAddGetInfo' type='submit' name='advAddGetInfo' value='Advanced Add' />").appendTo("#myForm");
-            $("<input id='advAddUpld' type='submit' name='advAddUpld' value='Upload' />").appendTo("#myForm");
-
-            //$('<select multiple><option value="f">First</option><option value="s">Second</option><option value="t">Third</option><option value="fr">Forth</option></select>').appendTo('#myForm').select({ width: 100 });
-            //$('<input type="checkbox" id="cbtest" />').appendTo('#myForm').checkbox({ bgcolor: '#333' });
-
-            var dd = getData();
-
-            var attachmentsColModel = [
-                        { label: '', propName: '', type: 'checkbox' },
-   		                { label: 'File Name', propName: 'FileName', width: 55 },
-   		                { label: 'Document Categories', type: 'select multiple', propName: 'DocumentCategories', width: 190 },
-   		                { label: 'Document Status', type: 'select', propName: 'DocumentStatus', width: 100 }
-            ];           
-            
-            $('<table id="attGrid"/>').appendTo('#myForm').grid({ data: dd.EmailInfo.Attachments, colModel: attachmentsColModel, parentId: 'attGrid' });
-
-            var attachmentsColModel2 = [
-                        { label: '', propName: '', type: 'checkbox' },
-   		                { label: 'File Name', propName: 'FileName', width: 55 },
-   		                { label: 'Document Categories', type: 'select multiple', propName: 'DocumentCategories', width: 190 },
-   		                { label: 'Document Status', type: 'select', propName: 'DocumentStatus', width: 100 }
-            ];
-
-            $('<table id="attGrid2"/>').appendTo('#myForm').grid({ data: dd.EmailInfo.Attachments, colModel: attachmentsColModel2, parentId: 'attGrid2' });
+            $("<input id='advancedAdd' type='submit' name='advancedAdd' value='Advanced Add' />").appendTo("#myForm");
 
             $("<br />").appendTo("#myForm");
             $("<label id='msgid'></label>").appendTo("#myForm");
 
             showStatus();
 
-            $('#advAddUpld').click(function () {
-                var guid = getPref(prefKey);
-                if (!guid) return false;
-                var url = geturl() + 'api/dynamo/Upload?uid=' + guid;
-                //var url = geturl() + 'api/dynamo/Upload';
-
-                var data = JSON.stringify(getData());
-                //var data  = JSON.stringify({ val1: 'asda', val2: 'asda' });
-
-                $.ajax({
-                    type: 'POST',
-                    contentType: 'application/json; charset=utf-8',
-                    data: data,
-                    url: url,
-                    success: function (data) {
-                        console.log(data);
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        alert('error ' + xhr.status + ' ' + xhr.response);
-                    }
-                });
-
-                return false;
-            });
-
-            $('#advAddGetInfo').click(function () {
+            $('#advancedAdd').click(function () {
                 var guid = getPref(prefKey);
                 if (!guid) return false;
                 var url = geturl() + 'api/dynamo/GetInfo?uid=' + guid + '&msgid=' + getMessageId();
@@ -109,7 +60,29 @@
                     async: true,
                     url: url,
                     success: function (data) {
-                        deserialize(data);
+                        var emailInfo = JSON.parse(data);
+                        alert(emailInfo.Subject);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + ' ' + xhr.response);
+                    }
+                });
+
+                return false;
+            });
+            
+            $('#quickAdd').click(function () {
+                var guid = getPref(prefKey);
+                if (!guid) return false;
+                var url = geturl() + 'api/dynamo/QuickAdd?uid=' + guid + '&msgid=' + getMessageId();
+
+                $.ajax({
+                    type: 'GET',
+                    cache: false,
+                    async: true,
+                    url: url,
+                    success: function (data) {
+                        alert(data);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         alert(xhr.status + ' ' + xhr.response);
@@ -119,8 +92,51 @@
                 return false;
             });
 
-            //if (gadgets)
-              //  gadgets.window.adjustHeight(50);
+            $('#loginbtn').click(function () {
+                var guid = getPref(prefKey);
+                if (guid) return false;
+
+                var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamoadmin@veli.com&dynamoPassord=veli.2014';
+                var url = geturl() + 'api/login/get?' + dataValues;
+
+                $.ajax({
+                    type: 'GET',
+                    cache: false,
+                    async: true,
+                    url: url,
+                    success: function (data) {
+                        setPref(prefKey, data);
+                        showStatus();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status + ' ' + xhr.response);
+                    }
+                });
+
+                return false;
+            });
+
+            $('#logoutbtn').click(function () {
+                var guid = getPref(prefKey);
+                if (!guid) return false;
+                var url = geturl() + '/api/logout/get?uid=' + guid;
+
+                $.ajax({
+                    type: 'GET',
+                    cache: false,
+                    url: url,
+                    success: function (response) {
+                        setPref(prefKey, null);
+                        showStatus();
+                    },
+                    error: function (xhr) {
+                        alert(xhr.status + ' ' + xhr.response);
+                    }
+                });
+                return false;
+            });
+
+            gadgets.window.adjustHeight(50);
         });
 
         function showStatus() {
@@ -132,11 +148,7 @@
                 $('#msgid').text('Logged Out');
             }
         }
-        
-        function geturl() {
-            return 'https://rome.netagesolutions.com:3434/';
-        }
-        
+
         function getPref(key) {
             var prefs = new gadgets.Prefs();
             return prefs.getString(key);
@@ -145,6 +157,10 @@
         function setPref(key, val) {
             var prefs = new gadgets.Prefs();
             prefs.set(key, val);
+        }
+
+        function geturl() {
+            return 'https://rome.netagesolutions.com:3434/';
         }
 
         function getMessageId() {
