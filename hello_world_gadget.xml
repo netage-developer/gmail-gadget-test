@@ -49,6 +49,7 @@
             $('<div id="formId" style="backgroud-color:red">Alalalala</div>').appendTo("#myForm");
             $('#formId').dialog({
                 resizable: false,
+                position: { my: "left top", at: "left top", of: $('#loginbtn') },
                 height: 140,
                 modal: true,
                 buttons: {
@@ -60,6 +61,7 @@
                     }
                 }
             });
+            
             
             $("<br />").appendTo("#myForm");
             $("<label id='msgid'></label>").appendTo("#myForm");
