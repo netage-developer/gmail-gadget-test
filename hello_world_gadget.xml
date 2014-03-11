@@ -46,21 +46,7 @@
             $("<input id='advancedAdd' type='submit' name='advancedAdd' value='Advanced Add' />").appendTo("#myForm");
             $("<input id='dddd' type='submit' name='dddd' value='dddd' />").appendTo("#myForm");
             
-            $('<div id="formId">Alalalala</div>').appendTo("#myForm");
-            $('#formId').dialog({
-                resizable: false,
-                position: { my: "left top", at: "left top", of: $('#loginbtn') },
-                height: 140,
-                modal: true,
-                buttons: {
-                    "Delete all items": function () {
-                        $(this).dialog("close");
-                    },
-                    Cancel: function () {
-                        $(this).dialog("close");
-                    }
-                }
-            });
+             $('<div id="formId" style="display: inline-block;box-shadow: 0px 0px 10px grey;padding: 36px;position: absolute;top: 40px;left: 577px;">Alalalala</div>').appendTo("#myForm");
             
             
             $("<br />").appendTo("#myForm");
