@@ -44,7 +44,8 @@
             $("<input id='logoutbtn' type='submit' name='logoutbtn' value='Logout' />").appendTo("#myForm");
             $("<input id='quickAdd' type='submit' name='quickAdd' value='Quick Add' />").appendTo("#myForm");
             $("<input id='advancedAdd' type='submit' name='advancedAdd' value='Advanced Add' />").appendTo("#myForm");
-
+            $("<input id='dddd' type='submit' name='dddd' value='dddd' />").appendTo("#myForm");
+            
             $('<div id="formId" style="backgroud-color:red">Alalalala</div>').appendTo("#myForm");
             $('#formId').dialog({
                 resizable: false,
