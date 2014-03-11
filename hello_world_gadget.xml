@@ -141,7 +141,7 @@
                 return false;
             });
 
-            gadgets.window.adjustHeight(350);
+            gadgets.window.adjustHeight(250);
         });
 
         function showStatus() {
