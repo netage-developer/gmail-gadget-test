@@ -46,7 +46,7 @@
             $("<input id='advancedAdd' type='submit' name='advancedAdd' value='Advanced Add' />").appendTo("#myForm");
             $("<input id='dddd' type='submit' name='dddd' value='dddd' />").appendTo("#myForm");
             
-            $('<div id="formId" style="backgroud-color:red">Alalalala</div>').appendTo("#myForm");
+            $('<div id="formId">Alalalala</div>').appendTo("#myForm");
             $('#formId').dialog({
                 resizable: false,
                 position: { my: "left top", at: "left top", of: $('#loginbtn') },
