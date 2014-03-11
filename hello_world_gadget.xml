@@ -32,7 +32,8 @@
   <Content type="html" view="card">
     <![CDATA[
      
-       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <script type="text/javascript">
 
         var prefKey = "userid";
@@ -44,6 +45,21 @@
             $("<input id='quickAdd' type='submit' name='quickAdd' value='Quick Add' />").appendTo("#myForm");
             $("<input id='advancedAdd' type='submit' name='advancedAdd' value='Advanced Add' />").appendTo("#myForm");
 
+            $('<div id="formId" style="backgroud-color:red">Alalalala</div>').appendTo("#myForm");
+            $('#formId').dialog({
+                resizable: false,
+                height: 140,
+                modal: true,
+                buttons: {
+                    "Delete all items": function () {
+                        $(this).dialog("close");
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+            
             $("<br />").appendTo("#myForm");
             $("<label id='msgid'></label>").appendTo("#myForm");
 
