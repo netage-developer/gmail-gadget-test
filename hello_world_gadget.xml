@@ -31,9 +31,25 @@
    "html" and "card" are required for all Gmail contextual gadgets. -->
   <Content type="html" view="card">
     <![CDATA[
+<head>
+    <link href="https://rome.netagesolutions.com:3434/Content/css/widget.checkbox.css" rel="stylesheet" />
+    <link href="https://rome.netagesolutions.com:3434/Content/css/widget.form.css" rel="stylesheet" />
+    <link href="https://rome.netagesolutions.com:3434/Content/css/widget.button.css" rel="stylesheet" />
+    <link href="https://rome.netagesolutions.com:3434/Content/css/widget.input.css" rel="stylesheet" />
+    <link href="https://rome.netagesolutions.com:3434/Content/css/widget.select.css" rel="stylesheet" />
+</head>
+<body>
      
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    
+    <script src="https://rome.netagesolutions.com:3434/Content/js/widget.input.js"></script>
+    <script src="https://rome.netagesolutions.com:3434/Content/js/widget.checkbox.js"></script>
+    <script src="https://rome.netagesolutions.com:3434/Content/js/widget.select.js"></script>
+    <script src="https://rome.netagesolutions.com:3434/Content/js/widget.button.js"></script>
+    <script src="https://rome.netagesolutions.com:3434/Content/js/widget.grid.js"></script>
+    <script src="https://rome.netagesolutions.com:3434/Content/js/widget.advform.js"></script>
+    
     <script type="text/javascript">
 
         var prefKey = "userid";
@@ -189,6 +205,7 @@
       
       <form id="myForm">
       </form>
+    </body>
     ]]>
   </Content>
 </Module>
