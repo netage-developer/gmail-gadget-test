@@ -38,23 +38,22 @@
 
         var prefKey = "userid";
 
-        $(document).ready(function () {
+                $(document).ready(function () {
 
-            $("<input id='loginbtn' type='submit' name='loginbtn' value='Login' />").appendTo("#myForm");
-            $("<input id='logoutbtn' type='submit' name='logoutbtn' value='Logout' />").appendTo("#myForm");
-            $("<input id='quickAdd' type='submit' name='quickAdd' value='Quick Add' />").appendTo("#myForm");
-            $("<input id='advancedAdd' type='submit' name='advancedAdd' value='Advanced Add' />").appendTo("#myForm");
-            $("<input id='dddd' type='submit' name='dddd' value='dddd' />").appendTo("#myForm");
-            
-            $('<div id="formId" style="display: inline-block;box-shadow: 0px 0px 10px grey;padding: 36px;position: absolute;top: 0;left: 0;z-index:200">Alalalala</div>').appendTo("#myForm");
-            
-            
+            $("<input id='loginbtn' type='button' name='loginbtn' value='Login' />").appendTo("#myForm").button();
+            //$("<input id='logoutbtn' type='submit' name='logoutbtn' value='Logout' />").appendTo("#myForm");
+            $("<input id='quickAdd' type='button' name='quickAdd' value='Quick Add' />").appendTo("#myForm").button();
+            $("<input id='advAddUpld' type='button' name='advAddUpld' value='Advanced Add' />").appendTo("#myForm").button();
+
             $("<br />").appendTo("#myForm");
             $("<label id='msgid'></label>").appendTo("#myForm");
 
             showStatus();
 
-            $('#advancedAdd').click(function () {
+            $('#advAddUpld').click(function (e) {
+                e.preventDefault();
+
+                var dynamoData;
                 var guid = getPref(prefKey);
                 if (!guid) return false;
                 var url = geturl() + 'api/dynamo/GetInfo?uid=' + guid + '&msgid=' + getMessageId();
@@ -65,17 +64,21 @@
                     async: true,
                     url: url,
                     success: function (data) {
-                        var emailInfo = JSON.parse(data);
-                        alert(emailInfo.Subject);
+                        dynamoData = JSON.parse(data);
+                        //deserialize(data);
+
+                        var targetUrl = geturl() + 'api/dynamo/Upload?uid=' + guid;
+                        $('<div id="advFormId" class="modalDiv">').appendTo("#myForm").advform({ data: dynamoData, parentId: 'advFormId', targetUrl: targetUrl }).hide();
+                        $('#advFormId').advform('show');
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         alert(xhr.status + ' ' + xhr.response);
                     }
                 });
 
-                return false;
             });
-            
+
+
             $('#quickAdd').click(function () {
                 var guid = getPref(prefKey);
                 if (!guid) return false;
@@ -141,8 +144,12 @@
                 return false;
             });
 
-            gadgets.window.adjustHeight(250);
+            if (gadgets)
+            {
+                gadgets.window.adjustHeight(50);
+            }
         });
+
 
         function showStatus() {
             var guid = getPref(prefKey);
