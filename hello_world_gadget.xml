@@ -84,6 +84,8 @@
                 if (!guid) return false;
                 var url = geturl() + 'api/dynamo/QuickAdd?uid=' + guid + '&msgid=' + getMessageId();
 
+                console.log(url);
+                
                 $.ajax({
                     type: 'GET',
                     cache: false,
@@ -115,6 +117,7 @@
                     success: function (data) {
                         setPref(prefKey, data);
                         showStatus();
+                        alert(data);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         alert(xhr.status + ' ' + xhr.response);
