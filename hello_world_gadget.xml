@@ -103,9 +103,6 @@
             });
 
             $('#loginbtn').click(function () {
-                var guid = getPref(prefKey);
-                if (guid) return false;
-
                 var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamo2@netagesolutions.com&dynamoPassord=dynamo';
                 var url = geturl() + 'api/login/get?' + dataValues;
 
