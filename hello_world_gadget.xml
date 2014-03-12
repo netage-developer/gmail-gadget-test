@@ -38,10 +38,10 @@
     <link href="https://rome.netagesolutions.com:3434/Content/css/widget.input.css" rel="stylesheet" />
     <link href="https://rome.netagesolutions.com:3434/Content/css/widget.select.css" rel="stylesheet" />
 </head>
-<body>
-     
+<body>    
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://rome.netagesolutions.com:3434/Content/js/jquery.nicescroll.min.js"></script>
     
     <script>
         $.extend({
