@@ -104,7 +104,7 @@
                 var guid = getPref(prefKey);
                 if (guid) return false;
 
-                var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamoadmin@veli.com&dynamoPassord=veli.2014';
+                var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamo2@netagesolutions.com&dynamoPassord=dynamo';
                 var url = geturl() + 'api/login/get?' + dataValues;
 
                 $.ajax({
