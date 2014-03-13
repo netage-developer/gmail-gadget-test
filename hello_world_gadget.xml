@@ -182,7 +182,7 @@
 
             if (gadgets)
             {
-                gadgets.window.adjustHeight(50);
+                gadgets.window.adjustHeight();
             }
         });
 
