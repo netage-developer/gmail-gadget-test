@@ -62,7 +62,7 @@
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.checkbox.js"></script>
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.select.js"></script>
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.button.js"></script>
-
+    <script src="https://rome.netagesolutions.com:3434/Content/js/widget.progress.js"></script>
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.grid.js"></script>
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.advform.js"></script>
     
@@ -188,7 +188,7 @@
 
             if (gadgets)
             {
-                gadgets.window.adjustHeight(60);
+                gadgets.window.adjustHeight();
             }
         });
 
@@ -228,7 +228,7 @@
 
     </script>
       
-      <form id="myForm">
+      <form id="gadgetContainer">
       </form>
     </body>
     ]]>
