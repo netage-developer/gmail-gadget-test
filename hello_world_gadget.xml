@@ -2,7 +2,7 @@
 <Module>
   <ModulePrefs title="Dynamo"
     description="Gmail contextual gadget"
-    height="50"
+    height=""
     author=""
     author_email="..."
     author_location="Netage">
