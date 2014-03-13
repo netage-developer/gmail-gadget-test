@@ -182,6 +182,7 @@
 
             if (gadgets)
             {
+                console.log('ajusted!!!');
                 gadgets.window.adjustHeight(60);
             }
         });
