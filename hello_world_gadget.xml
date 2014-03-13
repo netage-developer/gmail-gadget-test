@@ -101,6 +101,11 @@
                         var targetUrl = geturl() + 'api/dynamo/Upload?uid=' + guid;
                         $('<div id="advFormId" class="modalDiv">').appendTo("#myForm").advform({ data: dynamoData, parentId: 'advFormId', targetUrl: targetUrl }).hide();
                         $('#advFormId').advform('show');
+                        
+                        if (gadgets)
+                        {
+                            gadgets.window.adjustHeight(450);
+                        }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         alert(xhr.status + ' ' + xhr.response);
