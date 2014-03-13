@@ -70,7 +70,7 @@
 
         var prefKey = "userid";
 
-        $(document).ready(function () {
+                $(document).ready(function () {
 
             $("<input id='loginbtn' type='button' name='loginbtn' value='Login' />").appendTo("#gadgetContainer").button();
             //$("<input id='logoutbtn' type='submit' name='logoutbtn' value='Logout' />").appendTo("#gadgetContainer");
@@ -92,6 +92,10 @@
 
                 $('<div id="progress" class="modalDiv progress">').appendTo("#gadgetContainer").progress({ message: 'Reading data', parentId: 'progress', url: geturl() })
 
+                if (gadgets) {
+                    gadgets.window.adjustHeight();
+                }
+
                 $.ajax({
                     type: 'GET',
                     cache: false,
@@ -105,10 +109,18 @@
                         $('<div id="advFormId" class="modalDiv advForm">').appendTo("#gadgetContainer").advform({ data: dynamoData, parentId: 'advFormId', targetUrl: targetUrl }).hide();
                         $('#progress').progress('hide');
                         $('#advFormId').advform('showForm');
+
+                        if (gadgets) {
+                            gadgets.window.adjustHeight();
+                        }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         $('#progress').progress('hide');
                         alert(xhr.status + ' ' + xhr.response);
+
+                        if (gadgets) {
+                            gadgets.window.adjustHeight();
+                        }
                     }
                 });
 
@@ -122,6 +134,10 @@
 
                 $('<div id="progress" class="modalDiv progress">').appendTo("#gadgetContainer").progress({ message: 'Uploading data', parentId: 'progress', url: geturl() })
 
+                if (gadgets) {
+                    gadgets.window.adjustHeight();
+                }
+
                 $.ajax({
                     type: 'GET',
                     cache: false,
@@ -130,10 +146,18 @@
                     success: function (data) {
                         //alert(data);
                         $('#progress').progress('hide');
+
+                        if (gadgets) {
+                            gadgets.window.adjustHeight();
+                        }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         $('#progress').progress('hide');
                         alert(xhr.status + ' ' + xhr.response);
+
+                        if (gadgets) {
+                            gadgets.window.adjustHeight();
+                        }
                     }
                 });
 
@@ -146,6 +170,10 @@
 
                 $('<div id="progress" class="modalDiv progress">').appendTo("#gadgetContainer").progress({ message: 'Logging in', parentId: 'progress', url: geturl() })
 
+                if (gadgets) {
+                    gadgets.window.adjustHeight();
+                }
+
                 $.ajax({
                     type: 'GET',
                     cache: false,
@@ -155,10 +183,18 @@
                         setPref(prefKey, data);
                         showStatus();
                         $('#progress').progress('hide');
+
+                        if (gadgets) {
+                            gadgets.window.adjustHeight();
+                        }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         $('#progress').progress('hide');
                         alert(xhr.status + ' ' + xhr.response);
+
+                        if (gadgets) {
+                            gadgets.window.adjustHeight();
+                        }
                     }
                 });
 
@@ -186,11 +222,11 @@
                 return false;
             });
 
-            if (gadgets)
-            {
+            if (gadgets) {
                 gadgets.window.adjustHeight();
             }
         });
+
 
         function showStatus() {
             var guid = getPref(prefKey);
