@@ -37,6 +37,7 @@
     <link href="https://rome.netagesolutions.com:3434/Content/css/widget.button.css" rel="stylesheet" />
     <link href="https://rome.netagesolutions.com:3434/Content/css/widget.input.css" rel="stylesheet" />
     <link href="https://rome.netagesolutions.com:3434/Content/css/widget.select.css" rel="stylesheet" />
+    <link href="https://rome.netagesolutions.com:3434/Content/css/widget.radio.css" rel="stylesheet" />
 </head>
 <body>    
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
@@ -58,43 +59,43 @@
         });
     </script>
     
+    <script src="https://rome.netagesolutions.com:3434/Content/js/utils.js"></script>
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.input.js"></script>
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.checkbox.js"></script>
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.select.js"></script>
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.button.js"></script>
+    <script src="https://rome.netagesolutions.com:3434/Content/js/widget.radio.js"></script>
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.progress.js"></script>
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.grid.js"></script>
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.advform.js"></script>
+    <script src="https://rome.netagesolutions.com:3434/Content/js/widget.loginform.js"></script>
     
     <script type="text/javascript">
+    
+        $(document).ready(function () {
 
-        var prefKey = "userid";
-
-                $(document).ready(function () {
-
-            $("<input id='loginbtn' type='button' name='loginbtn' value='Login' />").appendTo("#gadgetContainer").button();
-            //$("<input id='logoutbtn' type='submit' name='logoutbtn' value='Logout' />").appendTo("#gadgetContainer");
             $("<input id='quickAdd' type='button' name='quickAdd' value='Quick Add' />").appendTo("#gadgetContainer").button();
             $("<input id='advAddUpld' type='button' name='advAddUpld' value='Advanced Add' />").appendTo("#gadgetContainer").button();
+           
+            $("<input id='loginbtn' type='button' name='loginbtn' value='Login' />").appendTo("#gadgetContainer").button();
+            $("<input id='logoutbtn' type='submit' name='logoutbtn' value='Logout' />").appendTo("#gadgetContainer").button();
 
             $("<br />").appendTo("#gadgetContainer");
             $("<label id='msgid'></label>").appendTo("#gadgetContainer");
 
-            showStatus();         
+            dynUtils.showStatus();         
 
             $('#advAddUpld').click(function (e) {
                 e.preventDefault();
 
                 var dynamoData;
-                var guid = getPref(prefKey);
+                var guid = dynUtils.getPref(dynUtils.prefKeyUserId);
                 if (!guid) return false;
-                var url = geturl() + 'api/dynamo/GetInfo?uid=' + guid + '&msgid=' + getMessageId();
+                var url = dynUtils.geturl() + 'api/dynamo/GetInfo?uid=' + guid + '&msgid=' + dynUtils.getMessageId();
 
-                $('<div id="progress" class="modalDiv progress">').appendTo("#gadgetContainer").progress({ message: 'Reading data', parentId: 'progress', url: geturl() })
+                $('<div id="progress" class="modalDiv progress">').appendTo("#gadgetContainer").progress({ message: 'Reading data', parentId: 'progress', url: dynUtils.geturl() })
 
-                if (gadgets) {
-                    gadgets.window.adjustHeight();
-                }
+                dynUtils.adjustGadgetHeight();
 
                 $.ajax({
                     type: 'GET',
@@ -103,40 +104,32 @@
                     url: url,
                     success: function (data) {
                         dynamoData = JSON.parse(data);
-                        //deserialize(data);
 
-                        var targetUrl = geturl() + 'api/dynamo/Upload?uid=' + guid;
+                        var targetUrl = dynUtils.geturl() + 'api/dynamo/Upload?uid=' + guid;
                         $('<div id="advFormId" class="modalDiv advForm">').appendTo("#gadgetContainer").advform({ data: dynamoData, parentId: 'advFormId', targetUrl: targetUrl }).hide();
                         $('#progress').progress('hide');
                         $('#advFormId').advform('showForm');
 
-                        if (gadgets) {
-                            gadgets.window.adjustHeight();
-                        }
+                        dynUtils.adjustGadgetHeight();
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         $('#progress').progress('hide');
                         alert(xhr.status + ' ' + xhr.response);
-
-                        if (gadgets) {
-                            gadgets.window.adjustHeight();
-                        }
+                        dynUtils.adjustGadgetHeight();
                     }
                 });
 
             });
 
+            $('#quickAdd').click(function (e) {
+                e.preventDefault();
 
-            $('#quickAdd').click(function () {
-                var guid = getPref(prefKey);
+                var guid = dynUtils.getPref(dynUtils.prefKeyUserId);
                 if (!guid) return false;
-                var url = geturl() + 'api/dynamo/QuickAdd?uid=' + guid + '&msgid=' + getMessageId();
+                var url = dynUtils.geturl() + 'api/dynamo/QuickAdd?uid=' + guid + '&msgid=' + dynUtils.getMessageId();
 
-                $('<div id="progress" class="modalDiv progress">').appendTo("#gadgetContainer").progress({ message: 'Uploading data', parentId: 'progress', url: geturl() })
-
-                if (gadgets) {
-                    gadgets.window.adjustHeight();
-                }
+                $('<div id="progress" class="modalDiv progress">').appendTo("#gadgetContainer").progress({ message: 'Uploading data', parentId: 'progress', url: dynUtils.geturl() })
+                dynUtils.adjustGadgetHeight();                
 
                 $.ajax({
                     type: 'GET',
@@ -146,121 +139,45 @@
                     success: function (data) {
                         //alert(data);
                         $('#progress').progress('hide');
-
-                        if (gadgets) {
-                            gadgets.window.adjustHeight();
-                        }
+                        dynUtils.adjustGadgetHeight();
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         $('#progress').progress('hide');
                         alert(xhr.status + ' ' + xhr.response);
-
-                        if (gadgets) {
-                            gadgets.window.adjustHeight();
-                        }
+                        dynUtils.adjustGadgetHeight();
                     }
                 });
-
-                return false;
             });
 
-            $('#loginbtn').click(function () {
-                var dataValues = 'gmailLoginEmail=netage.developer@netagesolutions.com&dynamoLoginEmail=dynamo2@netagesolutions.com&dynamoPassord=dynamo';
-                var url = geturl() + 'api/login/get?' + dataValues;
+            $('#loginbtn').click(function (e) {
+                e.preventDefault();
 
-                $('<div id="progress" class="modalDiv progress">').appendTo("#gadgetContainer").progress({ message: 'Logging in', parentId: 'progress', url: geturl() })
-
-                if (gadgets) {
-                    gadgets.window.adjustHeight();
-                }
-
-                $.ajax({
-                    type: 'GET',
-                    cache: false,
-                    async: true,
-                    url: url,
-                    success: function (data) {
-                        setPref(prefKey, data);
-                        showStatus();
-                        $('#progress').progress('hide');
-
-                        if (gadgets) {
-                            gadgets.window.adjustHeight();
-                        }
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        $('#progress').progress('hide');
-                        alert(xhr.status + ' ' + xhr.response);
-
-                        if (gadgets) {
-                            gadgets.window.adjustHeight();
-                        }
-                    }
-                });
-
-                return false;
+                $('<div id="loginFormId" class="modalDiv advForm">').appendTo("#gadgetContainer").loginform({ parentId: 'loginFormId', url: dynUtils.geturl() }).hide();
+                $('#loginFormId').loginform('showForm');
             });
 
-            $('#logoutbtn').click(function () {
-                var guid = getPref(prefKey);
+            $('#logoutbtn').click(function (e) {
+                e.preventDefault();
+
+                var guid = dynUtils.getPref(dynUtils.prefKeyUserId);
                 if (!guid) return false;
-                var url = geturl() + '/api/logout/get?uid=' + guid;
+                var url = dynUtils.geturl() + '/api/logout/get?uid=' + guid;
 
                 $.ajax({
                     type: 'GET',
                     cache: false,
                     url: url,
                     success: function (response) {
-                        setPref(prefKey, null);
-                        showStatus();
+                        dynUtils.setPref(dynUtils.prefKeyUserId, null);
+                        dynUtils.showStatus();
                     },
                     error: function (xhr) {
                         alert(xhr.status + ' ' + xhr.response);
                     }
                 });
-
-                return false;
             });
-
-            if (gadgets) {
-                gadgets.window.adjustHeight();
-            }
+            dynUtils.adjustGadgetHeight();
         });
-
-
-        function showStatus() {
-            var guid = getPref(prefKey);
-            if (guid) {
-                $('#msgid').text('Logged In');
-            }
-            else {
-                $('#msgid').text('Logged Out');
-            }
-        }
-
-        function getPref(key) {
-            var prefs = new gadgets.Prefs();
-            return prefs.getString(key);
-        }
-
-        function setPref(key, val) {
-            var prefs = new gadgets.Prefs();
-            prefs.set(key, val);
-        }
-
-        function geturl() {
-            return 'https://rome.netagesolutions.com:3434/';
-        }
-
-        function getMessageId() {
-            var matches = google.contentmatch.getContentMatches();
-
-            for (var match in matches)
-                for (var key in matches[match])
-                    if (key == 'message_id')
-                        return matches[match][key];
-        }
-
 
     </script>
       
