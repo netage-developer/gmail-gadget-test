@@ -71,19 +71,24 @@
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.loginform.js"></script>
     
     <script type="text/javascript">
-    
         $(document).ready(function () {
 
-            $("<input id='quickAdd' type='button' name='quickAdd' value='Quick Add' />").appendTo("#gadgetContainer").button();
-            $("<input id='advAddUpld' type='button' name='advAddUpld' value='Advanced Add' />").appendTo("#gadgetContainer").button();
+            var headerTable = $('<table cellpadding="0" cellspacing="0" border="0" class="headerTable">').appendTo("#gadgetContainer");
+            var trHeader = $('<tr />').appendTo(headerTable);
+            var td1Header = $('<td class="nsd"><strong>NETAGE SOLUTIONS DYNAMO</strong></td>').appendTo(trHeader);
+            var td2Header = $('<td class="loggedStatus">&nbsp;</td>').appendTo(trHeader);
+
+            $('<div id="gadgetContent" class="gadgetContent">').appendTo("#gadgetContainer");
+
+            $("<input id='quickAdd' type='button' name='quickAdd' value='Quick Add' class='separatedButton' />").appendTo("#gadgetContent").button();
+            $("<input id='advAddUpld' type='button' name='advAddUpld' value='Advanced Add' class='separatedButton' />").appendTo("#gadgetContent").button();
            
-            $("<input id='loginbtn' type='button' name='loginbtn' value='Login' />").appendTo("#gadgetContainer").button();
-            $("<input id='logoutbtn' type='submit' name='logoutbtn' value='Logout' />").appendTo("#gadgetContainer").button();
+            $("<input id='loginbtn' type='button' name='loginbtn' value='Login' />").appendTo("#gadgetContent").button();
+            $("<input id='logoutbtn' type='button' name='logoutbtn' value='Logout' />").appendTo("#gadgetContent").button();
 
-            $("<br />").appendTo("#gadgetContainer");
-            $("<label id='msgid'></label>").appendTo("#gadgetContainer");
+            $('<div id="loaderContainer" class="progress">').appendTo($('<div class="progressDiv">').appendTo("#gadgetContent")).progress().hide();
 
-            dynUtils.showStatus();         
+            dynUtils.showLoggedStatus();
 
             $('#advAddUpld').click(function (e) {
                 e.preventDefault();
@@ -93,8 +98,7 @@
                 if (!guid) return false;
                 var url = dynUtils.geturl() + 'api/dynamo/GetInfo?uid=' + guid + '&msgid=' + dynUtils.getMessageId();
 
-                $('<div id="progress" class="modalDiv progress">').appendTo("#gadgetContainer").progress({ message: 'Reading data', parentId: 'progress', url: dynUtils.geturl() })
-
+                $('#loaderContainer').progress('setLoaderStatus', true, 'Uploading activity to ' + dynUtils.getPref(dynUtils.dynamoTenant));
                 dynUtils.adjustGadgetHeight();
 
                 $.ajax({
@@ -106,15 +110,15 @@
                         dynamoData = JSON.parse(data);
 
                         var targetUrl = dynUtils.geturl() + 'api/dynamo/Upload?uid=' + guid;
-                        $('<div id="advFormId" class="modalDiv advForm">').appendTo("#gadgetContainer").advform({ data: dynamoData, parentId: 'advFormId', targetUrl: targetUrl }).hide();
-                        $('#progress').progress('hide');
+                        $('<div id="advFormId" class="advForm">').appendTo("#gadgetContent").advform({ data: dynamoData, parentId: 'advFormId', targetUrl: targetUrl }).hide();
+                        $('#loaderContainer').hide();
                         $('#advFormId').advform('showForm');
 
                         dynUtils.adjustGadgetHeight();
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        $('#progress').progress('hide');
-                        alert(xhr.status + ' ' + xhr.response);
+                        var errorData = JSON.parse(xhr.responseJSON);
+                        $('#loaderContainer').progress('setLoaderStatus', false, errorData.message, true);
                         dynUtils.adjustGadgetHeight();
                     }
                 });
@@ -128,7 +132,7 @@
                 if (!guid) return false;
                 var url = dynUtils.geturl() + 'api/dynamo/QuickAdd?uid=' + guid + '&msgid=' + dynUtils.getMessageId();
 
-                $('<div id="progress" class="modalDiv progress">').appendTo("#gadgetContainer").progress({ message: 'Uploading data', parentId: 'progress', url: dynUtils.geturl() })
+                $('#loaderContainer').progress('setLoaderStatus', true, 'Uploading activity to ' + dynUtils.getPref(dynUtils.dynamoTenant));
                 dynUtils.adjustGadgetHeight();                
 
                 $.ajax({
@@ -137,13 +141,12 @@
                     async: true,
                     url: url,
                     success: function (data) {
-                        //alert(data);
-                        $('#progress').progress('hide');
+                        $('#loaderContainer').hide();
                         dynUtils.adjustGadgetHeight();
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        $('#progress').progress('hide');
-                        alert(xhr.status + ' ' + xhr.response);
+                        var errorData = JSON.parse(xhr.responseJSON);
+                        $('#loaderContainer').progress('setLoaderStatus', false, errorData.message, true);
                         dynUtils.adjustGadgetHeight();
                     }
                 });
@@ -152,7 +155,9 @@
             $('#loginbtn').click(function (e) {
                 e.preventDefault();
 
-                $('<div id="loginFormId" class="modalDiv advForm">').appendTo("#gadgetContainer").loginform({ parentId: 'loginFormId', url: dynUtils.geturl() }).hide();
+                $('#loaderContainer').progress('setLoaderStatus', false, 'Login in Dynamo to specify tenant access');
+
+                $('<div id="loginFormId" class="advForm">').appendTo("#gadgetContent").loginform({ parentId: 'loginFormId', url: dynUtils.geturl() }).hide();
                 $('#loginFormId').loginform('showForm');
             });
 
@@ -176,14 +181,15 @@
                     }
                 });
             });
+
             dynUtils.adjustGadgetHeight();
         });
 
     </script>
-      
-      <form id="gadgetContainer">
-      </form>
-    </body>
+
+    <form id="gadgetContainer">
+    </form>
+</body>
     ]]>
   </Content>
 </Module>
