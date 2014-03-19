@@ -70,7 +70,7 @@
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.advform.js"></script>
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.loginform.js"></script>
     
-    <script type="text/javascript">
+        <script type="text/javascript">
         $(document).ready(function () {
 
             var headerTable = $('<table cellpadding="0" cellspacing="0" border="0" class="headerTable">').appendTo("#gadgetContainer");
@@ -86,19 +86,28 @@
             $("<input id='loginbtn' type='button' name='loginbtn' value='Login' />").appendTo("#gadgetContent").button();
             $("<input id='logoutbtn' type='button' name='logoutbtn' value='Logout' />").appendTo("#gadgetContent").button();
 
-            $('<div id="loaderContainer" class="progress">').appendTo($('<div class="progressDiv">').appendTo("#gadgetContent")).progress().hide();
+            $('<div id="loaderContainer" class="progress">').appendTo("#gadgetContent").progress().hide();
 
             dynUtils.showLoggedStatus();
 
             $('#advAddUpld').click(function (e) {
                 e.preventDefault();
 
+                if (dynUtils.isLocked() === true) {
+                    return;
+                }
+
                 var dynamoData;
                 var guid = dynUtils.getPref(dynUtils.prefKeyUserId);
-                if (!guid) return false;
+                if (!guid) {
+                    return;
+                }
+
+                dynUtils.lockButtons(true);
+
                 var url = dynUtils.geturl() + 'api/dynamo/GetInfo?uid=' + guid + '&msgid=' + dynUtils.getMessageId();
 
-                $('#loaderContainer').progress('setLoaderStatus', true, 'Uploading activity to ' + dynUtils.getPref(dynUtils.dynamoTenant));
+                $('#loaderContainer').progress('setLoaderStatus', true, 'Retrieving data from ' + dynUtils.getPref(dynUtils.dynamoTenant));
                 dynUtils.adjustGadgetHeight();
 
                 $.ajax({
@@ -108,28 +117,33 @@
                     url: url,
                     success: function (data) {
                         dynamoData = JSON.parse(data);
-
+                        console.log('msgid ' + guid);
                         var targetUrl = dynUtils.geturl() + 'api/dynamo/Upload?uid=' + guid;
-                        $('<div id="advFormId" class="advForm">').appendTo("#gadgetContent").advform({ data: dynamoData, parentId: 'advFormId', targetUrl: targetUrl }).hide();
-                        $('#loaderContainer').hide();
+                        $('<div id="advFormId" class="advForm">').appendTo("#gadgetContent").advform({ data: dynamoData, parentId: 'advFormId', targetUrl: targetUrl}).hide();
+                        //$('#loaderContainer').hide();
                         $('#advFormId').advform('showForm');
-
                         dynUtils.adjustGadgetHeight();
                     },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        var errorData = JSON.parse(xhr.responseJSON);
-                        $('#loaderContainer').progress('setLoaderStatus', false, errorData.message, true);
-                        dynUtils.adjustGadgetHeight();
+                    error: function (xhr) {
+                        dynUtils.showError(xhr);
                     }
                 });
-
             });
 
             $('#quickAdd').click(function (e) {
                 e.preventDefault();
 
+                if (dynUtils.isLocked() === true) {
+                    return;
+                }
+
                 var guid = dynUtils.getPref(dynUtils.prefKeyUserId);
-                if (!guid) return false;
+                if (!guid) {
+                    return;
+                }
+
+                dynUtils.lockButtons(true);
+
                 var url = dynUtils.geturl() + 'api/dynamo/QuickAdd?uid=' + guid + '&msgid=' + dynUtils.getMessageId();
 
                 $('#loaderContainer').progress('setLoaderStatus', true, 'Uploading activity to ' + dynUtils.getPref(dynUtils.dynamoTenant));
@@ -141,13 +155,13 @@
                     async: true,
                     url: url,
                     success: function (data) {
-                        $('#loaderContainer').hide();
+                        $('#loaderContainer').progress('setLoaderStatus', false, '1 item added to Dynamo');
                         dynUtils.adjustGadgetHeight();
+                        dynUtils.lockButtons(false);
                     },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        var errorData = JSON.parse(xhr.responseJSON);
-                        $('#loaderContainer').progress('setLoaderStatus', false, errorData.message, true);
-                        dynUtils.adjustGadgetHeight();
+                    error: function (xhr) {
+                        dynUtils.showError(xhr);
+                        dynUtils.lockButtons(false);
                     }
                 });
             });
@@ -155,8 +169,13 @@
             $('#loginbtn').click(function (e) {
                 e.preventDefault();
 
-                $('#loaderContainer').progress('setLoaderStatus', false, 'Login in Dynamo to specify tenant access');
+                if (dynUtils.isLocked() === true) {
+                    return;
+                }
 
+                dynUtils.lockButtons(true);
+
+                $('#loaderContainer').progress('setLoaderStatus', false, 'Login in Dynamo to specify tenant access');
                 $('<div id="loginFormId" class="advForm">').appendTo("#gadgetContent").loginform({ parentId: 'loginFormId', url: dynUtils.geturl() }).hide();
                 $('#loginFormId').loginform('showForm');
             });
@@ -164,8 +183,17 @@
             $('#logoutbtn').click(function (e) {
                 e.preventDefault();
 
+                if (dynUtils.isLocked() === true) {
+                    return;
+                }
+
                 var guid = dynUtils.getPref(dynUtils.prefKeyUserId);
-                if (!guid) return false;
+                if (!guid) {
+                    return;
+                }
+
+                dynUtils.lockButtons(true);
+
                 var url = dynUtils.geturl() + '/api/logout/get?uid=' + guid;
 
                 $.ajax({
@@ -173,11 +201,14 @@
                     cache: false,
                     url: url,
                     success: function (response) {
+                        $('#loaderContainer').progress('setLoaderStatus', false, 'Logged out');
                         dynUtils.setPref(dynUtils.prefKeyUserId, null);
                         dynUtils.showStatus();
+                        dynUtils.lockButtons(false);
                     },
                     error: function (xhr) {
-                        alert(xhr.status + ' ' + xhr.response);
+                        dynUtils.showError(xhr);
+                        dynUtils.lockButtons(false);
                     }
                 });
             });
@@ -186,7 +217,6 @@
         });
 
     </script>
-
     <form id="gadgetContainer">
     </form>
 </body>
