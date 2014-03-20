@@ -202,7 +202,7 @@
                     url: url,
                     success: function (response) {
                         $('#loaderContainer').progress('setLoaderStatus', false, 'Logged out');
-                        dynUtils.setPref(dynUtils.prefKeyUserId, null);
+                        dynUtils.setPref(dynUtils.prefKeyUserId, false);
                         dynUtils.lockButtons(false);
                         dynUtils.showLoggedStatus();
                     },
