@@ -34,6 +34,7 @@
 <head>
     <link href="https://rome.netagesolutions.com:3434/Content/css/widget.checkbox.css" rel="stylesheet" />
     <link href="https://rome.netagesolutions.com:3434/Content/css/widget.form.css" rel="stylesheet" />
+    <link href="https://rome.netagesolutions.com:3434/Content/css/widget.grid.css" rel="stylesheet" />
     <link href="https://rome.netagesolutions.com:3434/Content/css/widget.button.css" rel="stylesheet" />
     <link href="https://rome.netagesolutions.com:3434/Content/css/widget.input.css" rel="stylesheet" />
     <link href="https://rome.netagesolutions.com:3434/Content/css/widget.select.css" rel="stylesheet" />
@@ -70,7 +71,7 @@
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.advform.js"></script>
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.loginform.js"></script>
     
-        <script type="text/javascript">
+            <script type="text/javascript">
         $(document).ready(function () {
 
             var headerTable = $('<table cellpadding="0" cellspacing="0" border="0" class="headerTable">').appendTo("#gadgetContainer");
@@ -117,10 +118,10 @@
                     url: url,
                     success: function (data) {
                         dynamoData = JSON.parse(data);
-                        console.log('msgid ' + guid);
+                        //console.log('msgid ' + guid);
                         var targetUrl = dynUtils.geturl() + 'api/dynamo/Upload?uid=' + guid;
                         $('<div id="advFormId" class="advForm">').appendTo("#gadgetContent").advform({ data: dynamoData, parentId: 'advFormId', targetUrl: targetUrl}).hide();
-                        //$('#loaderContainer').hide();
+                        $('#loaderContainer').progress('setLoaderStatus', false, '');
                         $('#advFormId').advform('showForm');
                         dynUtils.adjustGadgetHeight();
                     },
@@ -194,7 +195,7 @@
 
                 dynUtils.lockButtons(true);
 
-                var url = dynUtils.geturl() + '/api/logout/get?uid=' + guid;
+                var url = dynUtils.geturl() + 'api/logout/get?uid=' + guid;
 
                 $.ajax({
                     type: 'GET',
@@ -203,8 +204,8 @@
                     success: function (response) {
                         $('#loaderContainer').progress('setLoaderStatus', false, 'Logged out');
                         dynUtils.setPref(dynUtils.prefKeyUserId, null);
-                        dynUtils.showStatus();
                         dynUtils.lockButtons(false);
+                        dynUtils.showLoggedStatus();
                     },
                     error: function (xhr) {
                         dynUtils.showError(xhr);
@@ -217,6 +218,7 @@
         });
 
     </script>
+    
     <form id="gadgetContainer">
     </form>
 </body>
