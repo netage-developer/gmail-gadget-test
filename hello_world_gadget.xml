@@ -41,8 +41,8 @@
     <link href="https://rome.netagesolutions.com:3434/Content/css/widget.radio.css" rel="stylesheet" />
 </head>
 <body>    
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>                       
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
     <script type="text/javascript" src="https://rome.netagesolutions.com:3434/Content/js/jquery.nicescroll.min.js"></script>
     
     <script>
@@ -87,7 +87,8 @@
             $("<input id='loginbtn' type='button' name='loginbtn' value='Login' />").appendTo("#gadgetContent").button();
             $("<input id='logoutbtn' type='button' name='logoutbtn' value='Logout' />").appendTo("#gadgetContent").button();
 
-            $('<div id="loaderContainer" class="progress">').appendTo("#gadgetContent").progress().hide();
+            $('<div id="loaderContainer" class="progress">').appendTo("#gadgetContent").progress();
+            $('#loaderContainer').progress('setLoaderStatus', false, '\u00A0');
 
             dynUtils.showLoggedStatus();
 
@@ -118,10 +119,8 @@
                     url: url,
                     success: function (data) {
                         dynamoData = JSON.parse(data);
-                        //console.log('msgid ' + guid);
                         var targetUrl = dynUtils.geturl() + 'api/dynamo/Upload?uid=' + guid;
                         $('<div id="advFormId" class="advForm">').appendTo("#gadgetContent").advform({ data: dynamoData, parentId: 'advFormId', targetUrl: targetUrl}).hide();
-                        $('#loaderContainer').progress('setLoaderStatus', false, '');
                         $('#advFormId').advform('showForm');
                         dynUtils.adjustGadgetHeight();
                     },
