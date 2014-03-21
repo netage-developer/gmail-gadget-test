@@ -71,7 +71,7 @@
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.advform.js"></script>
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.loginform.js"></script>
     
-            <script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function () {
 
             var headerTable = $('<table cellpadding="0" cellspacing="0" border="0" class="headerTable">').appendTo("#gadgetContainer");
@@ -126,6 +126,7 @@
                     },
                     error: function (xhr) {
                         dynUtils.showError(xhr);
+                        dynUtils.lockButtons(false);
                     }
                 });
             });
