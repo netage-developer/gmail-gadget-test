@@ -71,7 +71,7 @@
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.advform.js"></script>
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.loginform.js"></script>
     
-    <script type="text/javascript">
+      <script type="text/javascript">
         $(document).ready(function () {
 
             var headerTable = $('<table cellpadding="0" cellspacing="0" border="0" class="headerTable">').appendTo("#gadgetContainer");
@@ -203,7 +203,7 @@
                     url: url,
                     success: function (response) {
                         $('#loaderContainer').progress('setLoaderStatus', false, 'Logged out');
-                        dynUtils.setPref(dynUtils.prefKeyUserId, false);
+                        dynUtils.setPref(dynUtils.prefKeyUserId, dynUtils.prefKeyEmptyUserId);
                         dynUtils.lockButtons(false);
                         dynUtils.showLoggedStatus();
                     },
