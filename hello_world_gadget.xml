@@ -3,8 +3,8 @@
   <ModulePrefs title=""
     description=""
     height=""
-    author=""
-    author_email="..."
+    author="Netage Solutions, Inc."
+    author_email="veli@netagesolutions.com"
     author_location="Netage">
 
     <!-- Declare feature dependencies. -->
@@ -39,6 +39,7 @@
     <link href="https://rome.netagesolutions.com:3434/Content/css/widget.input.css" rel="stylesheet" />
     <link href="https://rome.netagesolutions.com:3434/Content/css/widget.select.css" rel="stylesheet" />
     <link href="https://rome.netagesolutions.com:3434/Content/css/widget.radio.css" rel="stylesheet" />
+    <link href="https://rome.netagesolutions.com:3434/Content/css/widget.autocomplete.css" rel="stylesheet" />
 </head>
 <body>    
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>                       
@@ -70,14 +71,18 @@
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.grid.js"></script>
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.advform.js"></script>
     <script src="https://rome.netagesolutions.com:3434/Content/js/widget.loginform.js"></script>
+    <script src="https://rome.netagesolutions.com:3434/Content/js/widget.autocomplete.js"></script>
     
-      <script type="text/javascript">
+          <script type="text/javascript">
         $(document).ready(function () {
 
             var headerTable = $('<table cellpadding="0" cellspacing="0" border="0" class="headerTable">').appendTo("#gadgetContainer");
             var trHeader = $('<tr />').appendTo(headerTable);
             var td1Header = $('<td class="nsd"><strong>NETAGE SOLUTIONS DYNAMO</strong></td>').appendTo(trHeader);
-            var td2Header = $('<td class="loggedStatus">&nbsp;</td>').appendTo(trHeader);
+
+
+            var loggedStatusDiv = $('<td class="loggedStatus">&nbsp;</td>').appendTo(trHeader);
+            dynUtils.showLoggedStatus();
 
             $('<div id="gadgetContent" class="gadgetContent">').appendTo("#gadgetContainer");
 
@@ -90,7 +95,7 @@
             $('<div id="loaderContainer" class="progress">').appendTo("#gadgetContent").progress();
             $('#loaderContainer').progress('setLoaderStatus', false, '\u00A0');
 
-            dynUtils.showLoggedStatus();
+            //dynUtils.showLoggedStatus();
 
             $('#advAddUpld').click(function (e) {
                 e.preventDefault();
