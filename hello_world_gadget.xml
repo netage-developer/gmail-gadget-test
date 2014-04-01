@@ -40,6 +40,7 @@
     <link href="https://rome.netagesolutions.com:3434/Content/css/widget.select.css" rel="stylesheet" />
     <link href="https://rome.netagesolutions.com:3434/Content/css/widget.radio.css" rel="stylesheet" />
     <link href="https://rome.netagesolutions.com:3434/Content/css/widget.autocomplete.css" rel="stylesheet" />
+    <link href="https://rome.netagesolutions.com:3434/Content/css/icons.css" rel="stylesheet" />
 </head>
 <body>    
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>                       
